@@ -1,0 +1,28 @@
+name: Build Windows EXE
+
+on:
+  push:
+    paths:
+      - 'scrape_to_csv.py'
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install selenium webdriver-manager requests pyinstaller
+      - name: Build EXE
+        run: |
+          pyinstaller --onefile scrape_to_csv.py
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: windows-scraper
+          path: dist/scrape_to_csv.exe
