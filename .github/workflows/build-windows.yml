@@ -9,12 +9,12 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3  # 克隆仓库
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: '3.9'  # 设置 Python 版本
 
       - name: Install dependencies
         run: |
@@ -23,10 +23,10 @@ jobs:
 
       - name: Build EXE
         run: |
-          pyinstaller --onefile scrape_to_csv.py
+          pyinstaller --onefile scrape_to_csv.py  # 使用 PyInstaller 构建 EXE
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2  # 使用 upload-artifact@v2
         with:
           name: windows-scraper
-          path: dist/scrape_to_csv.exe
+          path: dist/scrape_to_csv.exe  # 上传 EXE 文件
